@@ -9,13 +9,8 @@ const IndexPage = () => {
   const newFile = Array.isArray(query.newfile) ? query.newfile[0] : query.newfile
 
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
+    <Layout title="React Diff Viewer Example">
+      <h1>React Diff Viewer Example</h1>
       <Diff oldFile={oldFile} newFile={newFile} />
     </Layout>
   )
