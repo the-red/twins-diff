@@ -19,9 +19,39 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
     return json
   })
 
+  if (error) return <div>failed to load: {JSON.stringify(error.message)}</div>
+  if (!data) return <div>loading...</div>
+
+  const oldFilesSet = new Set(data.oldFilesList)
+  const newFilesSet = new Set(data.newFilesList)
+  const allFiles = Array.from(new Set([...oldFilesSet, ...newFilesSet]))
+
   return (
     <>
-      <pre>{JSON.stringify({ data }, null, 2)}</pre>
+      <table style={{ border: '1px black solid' }}>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>old</th>
+            <th>new</th>
+          </tr>
+        </thead>
+        {allFiles.map((file) => {
+          return (
+            <tr>
+              <td>
+                {oldFilesSet.has(file) && newFilesSet.has(file) ? (
+                  <a href={`/?oldfile=${oldDir}/${file}&newfile=${newDir}/${file}`}>{file}</a>
+                ) : (
+                  { file }
+                )}
+              </td>
+              <td>{oldFilesSet.has(file).toString()}</td>
+              <td>{newFilesSet.has(file).toString()}</td>
+            </tr>
+          )
+        })}
+      </table>
     </>
   )
 }
