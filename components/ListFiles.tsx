@@ -36,21 +36,23 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             <th>new</th>
           </tr>
         </thead>
-        {allFiles.map((file) => {
-          return (
-            <tr>
-              <td>
-                {oldFilesSet.has(file) && newFilesSet.has(file) ? (
-                  <a href={`/?oldfile=${oldDir}/${file}&newfile=${newDir}/${file}`}>{file}</a>
-                ) : (
-                  { file }
-                )}
-              </td>
-              <td>{oldFilesSet.has(file).toString()}</td>
-              <td>{newFilesSet.has(file).toString()}</td>
-            </tr>
-          )
-        })}
+        <tbody>
+          {allFiles.map((file, i) => {
+            return (
+              <tr key={i}>
+                <td>
+                  {oldFilesSet.has(file) && newFilesSet.has(file) ? (
+                    <a href={`/?oldfile=${oldDir}/${file}&newfile=${newDir}/${file}`}>{file}</a>
+                  ) : (
+                    { file }
+                  )}
+                </td>
+                <td>{oldFilesSet.has(file).toString()}</td>
+                <td>{newFilesSet.has(file).toString()}</td>
+              </tr>
+            )
+          })}
+        </tbody>
       </table>
     </>
   )
