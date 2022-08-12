@@ -1,4 +1,3 @@
-import React, { PureComponent } from 'react'
 import ReactDiffViewer from 'react-diff-viewer'
 
 const oldCode = `
@@ -21,10 +20,8 @@ if(a === 10) {
 }
 `
 
-class Diff extends PureComponent {
-  render = () => {
-    return <ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={true} />
-  }
+const Diff = () => {
+  return <ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={true} />
 }
 
 export default Diff
