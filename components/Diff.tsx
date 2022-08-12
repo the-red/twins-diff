@@ -1,27 +1,30 @@
+import useSWR from 'swr'
 import ReactDiffViewer from 'react-diff-viewer'
+import { OldNewDatas } from '../pages/api/read-files'
 
-const oldCode = `
-const a = 10
-const b = 10
-const c = () => console.log('foo')
+type Props = { oldFile: string; newFile: string }
 
-if(a > 10) {
-  console.log('bar')
-}
+const Diff = ({ oldFile, newFile }: Props) => {
+  const { data, error } = useSWR<OldNewDatas>(['/api/read-files', oldFile, newFile], async (url, oldFile, newFile) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ oldFilePath: oldFile, newFilePath: newFile }),
+    })
+    if (!res.ok) {
+      console.log('error')
+      const { errorMessage } = await res.json()
+      throw new Error(errorMessage)
+    }
+    const json = await res.json()
+    return json
+  })
 
-console.log('done')
-`
-const newCode = `
-const a = 10
-const boo = 10
-
-if(a === 10) {
-  console.log('bar')
-}
-`
-
-const Diff = () => {
-  return <ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={true} />
+  return (
+    <>
+      <ReactDiffViewer oldValue={data?.oldFile} newValue={data?.newFile} splitView={true} />
+    </>
+  )
 }
 
 export default Diff
