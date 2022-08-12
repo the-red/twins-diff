@@ -44,7 +44,7 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
                   {oldFilesSet.has(file) && newFilesSet.has(file) ? (
                     <a href={`/?oldfile=${oldDir}/${file}&newfile=${newDir}/${file}`}>{file}</a>
                   ) : (
-                    { file }
+                    file
                   )}
                 </td>
                 <td>{oldFilesSet.has(file).toString()}</td>
