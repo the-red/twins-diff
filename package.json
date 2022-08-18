@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "node open.js && next",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc"
