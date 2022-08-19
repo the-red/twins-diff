@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 
 const IndexPage = () => {
   const { query } = useRouter()
-  const oldFile = Array.isArray(query.oldfile) ? query.oldfile[0] : query.oldfile
-  const newFile = Array.isArray(query.newfile) ? query.newfile[0] : query.newfile
+  const oldFile = Array.isArray(query.oldFile) ? query.oldFile[0] : query.oldFile
+  const newFile = Array.isArray(query.newFile) ? query.newFile[0] : query.newFile
 
   return (
     <Layout title="React Diff Viewer Example">
