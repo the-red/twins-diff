@@ -10,7 +10,7 @@ const BackButton = ({ from, to }: { from: string; to: string }) => {
         router.push(`list?from=${path.dirname(from)}&to=${path.dirname(to)}`)
       }}
     >
-      ⬆
+      ↩ Parent Directory
     </button>
   )
 }
