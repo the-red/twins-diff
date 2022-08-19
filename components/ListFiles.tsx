@@ -24,7 +24,7 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
 
   const oldFilesMap = new Map(data.oldFilesList)
   const newFilesMap = new Map(data.newFilesList)
-  const allFiles = Array.from(new Set([...oldFilesMap.keys(), ...newFilesMap.keys()]))
+  const fileNames = Array.from(new Set([...oldFilesMap.keys(), ...newFilesMap.keys()]))
 
   return (
     <>
@@ -37,18 +37,26 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {allFiles.map((file, i) => {
+          {fileNames.map((name, i) => {
+            const oldFileType = oldFilesMap.get(name)
+            const newFileType = newFilesMap.get(name)
+            const query = `?from=${oldDir}/${name}&to=${newDir}/${name}`
+            let fileName
+            switch ([oldFileType, newFileType].join(',')) {
+              case 'file,file':
+                fileName = <a href={`/${query}`}>{name}</a>
+                break
+              case 'dir,dir':
+                fileName = <a href={`${query}`}>{name}</a>
+                break
+              default:
+                fileName = name
+            }
             return (
               <tr key={i}>
-                <td>
-                  {oldFilesMap.has(file) && newFilesMap.has(file) ? (
-                    <a href={`/?oldFile=${oldDir}/${file}&newFile=${newDir}/${file}`}>{file}</a>
-                  ) : (
-                    file
-                  )}
-                </td>
-                <td>{oldFilesMap.get(file)}</td>
-                <td>{newFilesMap.get(file)}</td>
+                <td>{fileName}</td>
+                <td>{oldFileType}</td>
+                <td>{newFileType}</td>
               </tr>
             )
           })}

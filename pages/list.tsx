@@ -6,8 +6,8 @@ import path from 'path'
 const FilesListPage = () => {
   const router = useRouter()
   const { query } = router
-  const oldDir = Array.isArray(query.oldDir) ? query.oldDir[0] : query.oldDir
-  const newDir = Array.isArray(query.newDir) ? query.newDir[0] : query.newDir
+  const oldDir = Array.isArray(query.from) ? query.from[0] : query.from
+  const newDir = Array.isArray(query.to) ? query.to[0] : query.to
 
   return (
     <Layout title="Files List">
@@ -15,7 +15,7 @@ const FilesListPage = () => {
 
       <button
         onClick={() => {
-          router.push(`?oldDir=${path.dirname(oldDir)}&newDir=${path.dirname(newDir)}`)
+          router.push(`?from=${path.dirname(oldDir)}&to=${path.dirname(newDir)}`)
         }}
       >
         ⬆
