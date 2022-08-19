@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import ListFiles from '../components/ListFiles'
-import path from 'path'
+import BackButton from '../components/BackButton'
 
 const FilesListPage = () => {
   const router = useRouter()
@@ -12,15 +12,7 @@ const FilesListPage = () => {
   return (
     <Layout title="Files List">
       <h1>Files List</h1>
-
-      <button
-        onClick={() => {
-          router.push(`?from=${path.dirname(oldDir)}&to=${path.dirname(newDir)}`)
-        }}
-      >
-        ⬆
-      </button>
-
+      <BackButton from={oldDir} to={newDir} />
       <ListFiles oldDir={oldDir} newDir={newDir} />
     </Layout>
   )
