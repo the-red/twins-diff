@@ -1,30 +1,30 @@
 import useSWR from 'swr'
-import { FilesList } from '../pages/api/list-files'
+import { OldNewFilesList } from '../pages/api/list-files'
 
 type Props = { oldDir: string; newDir: string }
 
 const ListFiles = ({ oldDir, newDir }: Props) => {
-  const { data, error } = useSWR<FilesList>(['/api/list-files', oldDir, newDir], async (url, oldDir, newDir) => {
+  const { data, error } = useSWR<OldNewFilesList>(['/api/list-files', oldDir, newDir], async (url, oldDir, newDir) => {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ oldDirPath: oldDir, newDirPath: newDir }),
     })
     if (!res.ok) {
-      console.log('error')
-      const { errorMessage } = await res.json()
-      throw new Error(errorMessage)
+      console.error('error')
+      const e = await res.json()
+      console.error(e)
+      throw new Error(e.errorMessage)
     }
-    const json = await res.json()
-    return json
+    return res.json()
   })
 
-  if (error) return <div>failed to load: {JSON.stringify(error.message)}</div>
+  if (error) return <div>failed to load: {JSON.stringify(error)}</div>
   if (!data) return <div>loading...</div>
 
-  const oldFilesSet = new Set(data.oldFilesList)
-  const newFilesSet = new Set(data.newFilesList)
-  const allFiles = Array.from(new Set([...oldFilesSet, ...newFilesSet]))
+  const oldFilesMap = new Map(data.oldFilesList)
+  const newFilesMap = new Map(data.newFilesList)
+  const allFiles = Array.from(new Set([...oldFilesMap.keys(), ...newFilesMap.keys()]))
 
   return (
     <>
@@ -41,14 +41,14 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             return (
               <tr key={i}>
                 <td>
-                  {oldFilesSet.has(file) && newFilesSet.has(file) ? (
+                  {oldFilesMap.has(file) && newFilesMap.has(file) ? (
                     <a href={`/?oldFile=${oldDir}/${file}&newFile=${newDir}/${file}`}>{file}</a>
                   ) : (
                     file
                   )}
                 </td>
-                <td>{oldFilesSet.has(file).toString()}</td>
-                <td>{newFilesSet.has(file).toString()}</td>
+                <td>{oldFilesMap.get(file)}</td>
+                <td>{newFilesMap.get(file)}</td>
               </tr>
             )
           })}
