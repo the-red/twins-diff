@@ -23,11 +23,7 @@ const DiffViewer = ({ oldFile, newFile }: Props) => {
   if (error) return <div>failed to load: {JSON.stringify(error)}</div>
   if (!data) return <div>loading...</div>
 
-  return (
-    <>
-      <ReactDiffViewer oldValue={data?.oldFile} newValue={data?.newFile} splitView={true} />
-    </>
-  )
+  return <ReactDiffViewer oldValue={data?.oldFile} newValue={data?.newFile} splitView={true} />
 }
 
 export default DiffViewer
