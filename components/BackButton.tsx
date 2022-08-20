@@ -1,17 +1,12 @@
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import path from 'path'
 
 const BackButton = ({ from, to }: { from?: string; to?: string }) => {
-  const router = useRouter()
-
+  const href = from && to ? `list?from=${path.dirname(from)}&to=${path.dirname(to)}` : '#'
   return (
-    <button
-      onClick={() => {
-        if (from && to) router.push(`list?from=${path.dirname(from)}&to=${path.dirname(to)}`)
-      }}
-    >
-      ↩ Parent Directory
-    </button>
+    <Link href={href}>
+      <a>↩ Parent Directory</a>
+    </Link>
   )
 }
 
