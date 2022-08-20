@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import ReactDiffViewer from 'react-diff-viewer'
 import { OldNewDatas } from '../pages/api/read-files'
 
-type Props = { oldFile: string; newFile: string }
+type Props = { oldFile?: string; newFile?: string }
 
 const Diff = ({ oldFile, newFile }: Props) => {
   const { data, error } = useSWR<OldNewDatas>(['/api/read-files', oldFile, newFile], async (url, oldFile, newFile) => {

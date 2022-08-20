@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { OldNewFilesList } from '../pages/api/list-files'
 
-type Props = { oldDir: string; newDir: string }
+type Props = { oldDir?: string; newDir?: string }
 
 const ListFiles = ({ oldDir, newDir }: Props) => {
   const { data, error } = useSWR<OldNewFilesList>(['/api/list-files', oldDir, newDir], async (url, oldDir, newDir) => {
