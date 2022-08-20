@@ -7,7 +7,7 @@ export const parentDirectory = ({
   from?: string
   to?: string
 }): { href: string; icon: string; text: string } => {
-  const href = from && to ? `list?from=${path.dirname(from)}&to=${path.dirname(to)}` : '#'
+  const href = from && to ? `/?from=${path.dirname(from)}&to=${path.dirname(to)}` : '#'
   const icon = '↩'
   const text = 'Parent Directory'
 

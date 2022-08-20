@@ -59,7 +59,7 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             let fileName, icon
             switch ([oldFileType, newFileType].join(',')) {
               case 'file,file':
-                fileName = <a href={`/${query}`}>{name}</a>
+                fileName = <a href={`/diff${query}`}>{name}</a>
                 icon = <FileDiffIcon size={16} />
                 break
               case 'dir,dir':
