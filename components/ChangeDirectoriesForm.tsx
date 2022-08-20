@@ -14,10 +14,14 @@ const ChangeDirectoriesForm = ({ fromDir, toDir }: { fromDir?: string; toDir?: s
             <input name="to" defaultValue={toDir} style={{ width: '800px' }} />
           </td>
         </tr>
+        <tr>
+          <td></td>
+          <td style={{ textAlign: 'right' }}>
+            <input type="submit" value="Change Directories" />
+          </td>
+        </tr>
       </tbody>
     </table>
-
-    <input type="submit" value="Change Directories" />
   </form>
 )
 
