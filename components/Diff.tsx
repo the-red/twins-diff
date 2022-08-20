@@ -12,13 +12,16 @@ const Diff = ({ oldFile, newFile }: Props) => {
       body: JSON.stringify({ oldFilePath: oldFile, newFilePath: newFile }),
     })
     if (!res.ok) {
-      console.log('error')
-      const { errorMessage } = await res.json()
-      throw new Error(errorMessage)
+      console.error('error')
+      const e = await res.json()
+      console.error(e)
+      throw new Error(e.errorMessage)
     }
-    const json = await res.json()
-    return json
+    return res.json()
   })
+
+  if (error) return <div>failed to load: {JSON.stringify(error)}</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <>
