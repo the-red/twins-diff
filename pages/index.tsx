@@ -41,7 +41,9 @@ const IndexPage: NextPage = () => {
         </tbody>
       </table>
 
+      <hr />
       <ListFiles oldDir={fromDir} newDir={toDir} />
+      <hr />
     </Layout>
   )
 }
