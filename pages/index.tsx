@@ -1,13 +1,28 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import ListFiles from '../components/ListFiles'
 
 const IndexPage: NextPage = () => {
   const router = useRouter()
-  const { query } = router
-  const oldDir = Array.isArray(query.from) ? query.from[0] : query.from
-  const newDir = Array.isArray(query.to) ? query.to[0] : query.to
+
+  const [fromDir, setFromDir] = useState<string | undefined>()
+  const [toDir, setToDir] = useState<string | undefined>()
+
+  useEffect(() => {
+    const { query } = router
+
+    if (router.isReady) {
+      const fromDir = Array.isArray(query.from) ? query.from[0] : query.from
+      const toDir = Array.isArray(query.to) ? query.to[0] : query.to
+
+      if (fromDir && toDir) {
+        setFromDir(fromDir)
+        setToDir(toDir)
+      }
+    }
+  }, [router])
 
   return (
     <Layout title="Files List">
@@ -17,16 +32,16 @@ const IndexPage: NextPage = () => {
         <tbody>
           <tr>
             <th style={{ textAlign: 'right' }}>from</th>
-            <td>{oldDir}</td>
+            <td>{fromDir}</td>
           </tr>
           <tr>
             <th style={{ textAlign: 'right' }}>to</th>
-            <td>{newDir}</td>
+            <td>{toDir}</td>
           </tr>
         </tbody>
       </table>
 
-      <ListFiles oldDir={oldDir} newDir={newDir} />
+      <ListFiles oldDir={fromDir} newDir={toDir} />
     </Layout>
   )
 }
