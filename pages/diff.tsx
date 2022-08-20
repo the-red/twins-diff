@@ -13,6 +13,7 @@ const DetailPage: NextPage = () => {
     <Layout title="React Diff Viewer Example">
       <h1>React Diff Viewer Example</h1>
       <BackButton from={oldFile} to={newFile} />
+      <div style={{ margin: '20px' }}></div>
       <DiffViewer oldFile={oldFile} newFile={newFile} />
     </Layout>
   )
