@@ -12,6 +12,20 @@ const IndexPage: NextPage = () => {
   return (
     <Layout title="Files List">
       <h1>Files List</h1>
+
+      <table>
+        <tbody>
+          <tr>
+            <th style={{ textAlign: 'right' }}>from</th>
+            <td>{oldDir}</td>
+          </tr>
+          <tr>
+            <th style={{ textAlign: 'right' }}>to</th>
+            <td>{newDir}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <ListFiles oldDir={oldDir} newDir={newDir} />
     </Layout>
   )
