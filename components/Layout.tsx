@@ -1,13 +1,15 @@
 import React, { ReactNode } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
+import ChangePathsForm from './ChangeDirectoriesForm'
 
 type Props = {
   children?: ReactNode
   title?: string
+  from?: string
+  to?: string
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
+const Layout = ({ children, title = 'This is the default title', from, to }: Props) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -17,6 +19,11 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <header>
       <nav></nav>
     </header>
+    <h1>{title}</h1>
+
+    <ChangePathsForm from={from} to={to} />
+    <div style={{ margin: '20px' }}></div>
+
     {children}
     <footer></footer>
   </div>

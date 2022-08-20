@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import ChangeDirectoriesForm from '../components/ChangeDirectoriesForm'
 import Layout from '../components/Layout'
 import ListFiles from '../components/ListFiles'
 
@@ -25,13 +24,9 @@ const IndexPage: NextPage = () => {
     }
   }, [router])
 
+  const title = 'Index'
   return (
-    <Layout title="Files List">
-      <h1>Files List</h1>
-
-      <ChangeDirectoriesForm fromDir={fromDir} toDir={toDir} />
-      <div style={{ margin: '20px' }}></div>
-
+    <Layout title={title} from={fromDir} to={toDir}>
       <hr />
       <ListFiles oldDir={fromDir} newDir={toDir} />
       <hr />
