@@ -13,7 +13,6 @@ const FilesListPage: NextPage = () => {
   return (
     <Layout title="Files List">
       <h1>Files List</h1>
-      <BackButton from={oldDir} to={newDir} />
       <ListFiles oldDir={oldDir} newDir={newDir} />
     </Layout>
   )

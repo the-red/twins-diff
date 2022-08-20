@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import { OldNewFilesList } from '../pages/api/list-files'
-import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
+import { ArrowLeftIcon, FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
+import { parentDirectory } from '../utils/parent-directory'
 
 type Props = { oldDir?: string; newDir?: string }
 
@@ -27,6 +28,8 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
   const newFilesMap = new Map(data.newFilesList)
   const fileNames = Array.from(new Set([...oldFilesMap.keys(), ...newFilesMap.keys()]))
 
+  const { href, icon, text } = parentDirectory({ from: oldDir, to: newDir })
+
   return (
     <>
       <table>
@@ -39,6 +42,16 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <span>{icon}</span>
+            </td>
+            <td>
+              <a href={href}>{text}</a>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
           {fileNames.map((name, i) => {
             const oldFileType = oldFilesMap.get(name)
             const newFileType = newFilesMap.get(name)

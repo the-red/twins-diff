@@ -1,11 +1,13 @@
 import Link from 'next/link'
-import path from 'path'
+import { parentDirectory } from '../utils/parent-directory'
 
 const BackButton = ({ from, to }: { from?: string; to?: string }) => {
-  const href = from && to ? `list?from=${path.dirname(from)}&to=${path.dirname(to)}` : '#'
+  const { href, icon, text } = parentDirectory({ from, to })
   return (
     <Link href={href}>
-      <a>↩ Parent Directory</a>
+      <a>
+        {icon} {text}
+      </a>
     </Link>
   )
 }
