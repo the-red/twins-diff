@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import { OldNewFilesList } from '../pages/api/list-files'
+import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
 
 type Props = { oldDir?: string; newDir?: string }
 
@@ -28,9 +29,10 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
 
   return (
     <>
-      <table style={{ border: '1px black solid' }}>
+      <table>
         <thead>
           <tr>
+            <th></th>
             <th>name</th>
             <th>old</th>
             <th>new</th>
@@ -41,19 +43,23 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             const oldFileType = oldFilesMap.get(name)
             const newFileType = newFilesMap.get(name)
             const query = `?from=${oldDir}/${name}&to=${newDir}/${name}`
-            let fileName
+            let fileName, icon
             switch ([oldFileType, newFileType].join(',')) {
               case 'file,file':
                 fileName = <a href={`/${query}`}>{name}</a>
+                icon = <FileDiffIcon size={16} />
                 break
               case 'dir,dir':
                 fileName = <a href={`${query}`}>{name}</a>
+                icon = <FileDirectoryFillIcon size={16} fill="rgb(84, 174, 255)" />
                 break
               default:
                 fileName = name
+                icon = ''
             }
             return (
               <tr key={i}>
+                <td>{icon}</td>
                 <td>{fileName}</td>
                 <td>{oldFileType}</td>
                 <td>{newFileType}</td>
