@@ -2,4 +2,4 @@
 
 const { spawn } = require('child_process')
 
-spawn('next', ['dev'], { cwd: __dirname, stdio: 'inherit' })
+spawn('next', ['start'], { cwd: __dirname, stdio: 'inherit' })
