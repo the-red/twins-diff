@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { OldNewFilesList } from '../pages/api/list-files'
-import { ArrowLeftIcon, FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
+import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
 import { parentDirectory } from '../utils/parent-directory'
 
 type Props = { oldDir?: string; newDir?: string }

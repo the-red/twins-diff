@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import ListFiles from '../components/ListFiles'
-import BackButton from '../components/BackButton'
 
 const FilesListPage: NextPage = () => {
   const router = useRouter()
