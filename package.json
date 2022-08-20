@@ -1,6 +1,6 @@
 {
   "name": "twins-diff",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "bin": "./cli.js",
   "scripts": {
     "dev": "next dev",
