@@ -27,9 +27,7 @@ const IndexPage: NextPage = () => {
   const title = 'Index'
   return (
     <Layout title={title} from={fromDir} to={toDir}>
-      <hr />
       <ListFiles oldDir={fromDir} newDir={toDir} />
-      <hr />
     </Layout>
   )
 }
