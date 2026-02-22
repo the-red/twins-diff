@@ -39,7 +39,7 @@ go install github.com/the-red/twins-diff/cmd/twins-diff@latest
 git clone https://github.com/the-red/twins-diff.git
 cd twins-diff
 make build
-# Binary is generated at ./twins-diff
+# Binary is generated at bin/twins-diff
 ```
 
 ## Usage

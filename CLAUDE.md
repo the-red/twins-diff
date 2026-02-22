@@ -28,9 +28,9 @@ make dev-frontend   # Vite開発サーバー（ポート5173）
 make dev-go         # Goサーバー（APIのみ、ポート3001）
 
 # 実行
-./twins-diff                           # ブラウザが自動で開く
-./twins-diff /path/a /path/b           # 第1引数が左側、第2引数が右側
-./twins-diff --port 8080 /path/a /path/b
+bin/twins-diff                           # ブラウザが自動で開く
+bin/twins-diff /path/a /path/b           # 第1引数が左側、第2引数が右側
+bin/twins-diff --port 8080 /path/a /path/b
 ```
 
 ## アーキテクチャ

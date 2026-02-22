@@ -12,11 +12,12 @@ cmd/twins-diff/web/dist: frontend
 
 # Goバイナリビルド
 build: cmd/twins-diff/web/dist
-	go build -o twins-diff ./cmd/twins-diff
+	mkdir -p bin
+	go build -o bin/twins-diff ./cmd/twins-diff
 
 # クリーンアップ
 clean:
-	rm -rf twins-diff cmd/twins-diff/web
+	rm -rf bin cmd/twins-diff/web
 
 # 開発用: フロントエンド開発サーバー
 dev-frontend:

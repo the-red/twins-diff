@@ -39,7 +39,7 @@ go install github.com/the-red/twins-diff/cmd/twins-diff@latest
 git clone https://github.com/the-red/twins-diff.git
 cd twins-diff
 make build
-# ./twins-diff にバイナリが生成される
+# bin/twins-diff にバイナリが生成される
 ```
 
 ## 使い方

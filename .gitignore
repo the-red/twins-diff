@@ -37,7 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 # Go
-/twins-diff
+/bin/
 /cmd/twins-diff/web/
 
 # Vite build output
