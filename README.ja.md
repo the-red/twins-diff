@@ -16,6 +16,18 @@
 
 ## インストール
 
+### npm
+
+```bash
+npm install -g @the-red/twins-diff
+```
+
+グローバルインストールなしで使う場合：
+
+```bash
+npx @the-red/twins-diff /path/to/old /path/to/new
+```
+
 ### バイナリダウンロード
 
 [GitHub Releases](https://github.com/the-red/twins-diff/releases) からプラットフォーム別のバイナリをダウンロード：

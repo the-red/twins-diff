@@ -16,6 +16,18 @@ A web-based tool for comparing two directory trees and displaying file differenc
 
 ## Installation
 
+### npm
+
+```bash
+npm install -g @the-red/twins-diff
+```
+
+Or use npx without global installation:
+
+```bash
+npx @the-red/twins-diff /path/to/old /path/to/new
+```
+
 ### Binary Download
 
 Download platform-specific binaries from [GitHub Releases](https://github.com/the-red/twins-diff/releases):

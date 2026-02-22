@@ -1,0 +1,31 @@
+{
+  "name": "@the-red/twins-diff",
+  "version": "0.9.0",
+  "description": "Web-based tool for comparing two directory trees",
+  "bin": {
+    "twins-diff": "./bin/twins-diff.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/the-red/twins-diff.git"
+  },
+  "homepage": "https://github.com/the-red/twins-diff",
+  "bugs": {
+    "url": "https://github.com/the-red/twins-diff/issues"
+  },
+  "keywords": [
+    "diff",
+    "directory",
+    "compare",
+    "file-comparison",
+    "web-ui"
+  ],
+  "author": "the-red",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
