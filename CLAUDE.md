@@ -29,8 +29,8 @@ make dev-go         # Goサーバー（APIのみ、ポート3001）
 
 # 実行
 ./twins-diff                           # ブラウザが自動で開く
-./twins-diff --from /path/a --to /path/b
-./twins-diff --port 8080 --no-browser
+./twins-diff /path/a /path/b           # 第1引数が左側、第2引数が右側
+./twins-diff --port 8080 /path/a /path/b
 ```
 
 ## アーキテクチャ

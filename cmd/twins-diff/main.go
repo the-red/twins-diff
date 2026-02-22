@@ -18,17 +18,32 @@ var distFS embed.FS
 
 func main() {
 	port := flag.Int("port", 3000, "port to listen on")
-	from := flag.String("from", "", "path to old directory")
-	to := flag.String("to", "", "path to new directory")
 	noBrowser := flag.Bool("no-browser", false, "do not open browser")
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: %s [options] [dir1] [dir2]\n\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Compare two directories and display differences in browser.\n\n")
+		fmt.Fprintf(os.Stderr, "Arguments:\n")
+		fmt.Fprintf(os.Stderr, "  dir1    Left side directory (displayed as 'old')\n")
+		fmt.Fprintf(os.Stderr, "  dir2    Right side directory (displayed as 'new')\n\n")
+		fmt.Fprintf(os.Stderr, "Options:\n")
+		flag.PrintDefaults()
+	}
 	flag.Parse()
+
+	args := flag.Args()
+	var dir1, dir2 string
+	if len(args) >= 2 {
+		dir1, dir2 = args[0], args[1]
+	} else if len(args) == 1 {
+		dir1 = args[0]
+	}
 
 	// URLを構築
 	serverURL := fmt.Sprintf("http://localhost:%d/", *port)
-	if *from != "" && *to != "" {
+	if dir1 != "" && dir2 != "" {
 		params := url.Values{}
-		params.Set("from", *from)
-		params.Set("to", *to)
+		params.Set("from", dir1)
+		params.Set("to", dir2)
 		serverURL += "?" + params.Encode()
 	}
 

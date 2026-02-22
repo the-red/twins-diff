@@ -46,21 +46,22 @@ make build
 
 ```bash
 # ブラウザでディレクトリ比較を開く
-twins-diff --from /path/to/old --to /path/to/new
+twins-diff /path/to/old /path/to/new
 
 # ポートを指定
-twins-diff --port 8080 --from /path/to/old --to /path/to/new
+twins-diff --port 8080 /path/to/old /path/to/new
 
 # ブラウザを自動で開かない
-twins-diff --no-browser --from /path/to/old --to /path/to/new
+twins-diff --no-browser /path/to/old /path/to/new
+
+# 先にブラウザを開いて、UIでパスを設定
+twins-diff
 ```
 
 ### オプション
 
 | オプション | デフォルト | 説明 |
 |-----------|-----------|------|
-| `--from` | | 比較元ディレクトリのパス |
-| `--to` | | 比較先ディレクトリのパス |
 | `--port` | `3000` | 待ち受けポート |
 | `--no-browser` | `false` | ブラウザを自動で開かない |
 

@@ -46,21 +46,22 @@ make build
 
 ```bash
 # Open browser with directory comparison
-twins-diff --from /path/to/old --to /path/to/new
+twins-diff /path/to/old /path/to/new
 
 # Specify port
-twins-diff --port 8080 --from /path/to/old --to /path/to/new
+twins-diff --port 8080 /path/to/old /path/to/new
 
 # Without auto-opening browser
-twins-diff --no-browser --from /path/to/old --to /path/to/new
+twins-diff --no-browser /path/to/old /path/to/new
+
+# Open browser first, then set paths in the UI
+twins-diff
 ```
 
 ### Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `--from` | | Path to old directory |
-| `--to` | | Path to new directory |
 | `--port` | `3000` | Port to listen on |
 | `--no-browser` | `false` | Do not open browser automatically |
 
