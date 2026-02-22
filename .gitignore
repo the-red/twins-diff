@@ -2,13 +2,14 @@
 
 # dependencies
 /node_modules
+/frontend/node_modules
 /.pnp
 .pnp.js
 
 # testing
 /coverage
 
-# next.js
+# next.js (legacy)
 /.next/
 /out/
 
@@ -34,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Go
+/twins-diff
+/cmd/twins-diff/web/
+
+# Vite build output
+/web/dist/
