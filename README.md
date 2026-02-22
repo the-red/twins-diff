@@ -27,6 +27,12 @@ Download platform-specific binaries from [GitHub Releases](https://github.com/th
 - `twins-diff_X.X.X_windows_amd64.zip` (Windows x64)
 - `twins-diff_X.X.X_windows_arm64.zip` (Windows ARM64)
 
+### Homebrew (macOS / Linux)
+
+```bash
+brew install the-red/tap/twins-diff
+```
+
 ### go install
 
 ```bash

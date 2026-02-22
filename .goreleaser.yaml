@@ -40,3 +40,18 @@ changelog:
       - "^docs:"
       - "^test:"
       - "^chore:"
+
+brews:
+  - name: twins-diff
+    repository:
+      owner: the-red
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/the-red/twins-diff"
+    description: "Web-based tool for comparing two directory trees"
+    license: "MIT"
+    install: |
+      bin.install "twins-diff"
+    test: |
+      system "#{bin}/twins-diff", "-h"
