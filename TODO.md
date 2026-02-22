@@ -38,5 +38,7 @@ ginue/gyuma/twins-diff 単一バイナリ化プロジェクトの Phase 0。
 ### 5. リリース準備
 
 - [ ] 既存の Node.js 版をレガシーブランチに退避
-- [ ] README 更新
-- [ ] goreleaser 設定（クロスコンパイル）
+- [x] README 更新（英語版・日本語版）
+- [x] goreleaser 設定（クロスコンパイル）
+- [x] GitHub Actions ワークフロー設定
+- [x] LICENSE ファイル作成
