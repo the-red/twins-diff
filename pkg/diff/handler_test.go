@@ -143,6 +143,8 @@ func TestHandleListFilesInvalidJSON(t *testing.T) {
 }
 
 func TestHandleListFilesNonExistentDir(t *testing.T) {
+	// 片方のみに存在するディレクトリの差分表示をサポートするため、
+	// 存在しないディレクトリでも200 OKを返し、空のリストを返す
 	reqBody := ListFilesRequest{
 		OldDirPath: "/nonexistent/old",
 		NewDirPath: "/nonexistent/new",
@@ -155,8 +157,21 @@ func TestHandleListFilesNonExistentDir(t *testing.T) {
 	rec := httptest.NewRecorder()
 	handleListFiles(rec, req)
 
-	if rec.Code != http.StatusInternalServerError {
-		t.Errorf("ステータスコードが不正: got %d, want %d", rec.Code, http.StatusInternalServerError)
+	if rec.Code != http.StatusOK {
+		t.Errorf("ステータスコードが不正: got %d, want %d", rec.Code, http.StatusOK)
+	}
+
+	var resp ListFilesResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("レスポンスのパースに失敗: %v", err)
+	}
+
+	// 存在しないディレクトリなので空のリストが返される
+	if len(resp.OldFilesList) != 0 {
+		t.Errorf("OldFilesListが空であるべき: got %d", len(resp.OldFilesList))
+	}
+	if len(resp.NewFilesList) != 0 {
+		t.Errorf("NewFilesListが空であるべき: got %d", len(resp.NewFilesList))
 	}
 }
 
@@ -207,6 +222,8 @@ func TestHandleReadFilesInvalidJSON(t *testing.T) {
 }
 
 func TestHandleReadFilesNonExistentFile(t *testing.T) {
+	// 片方のみに存在するファイルの差分表示をサポートするため、
+	// 存在しないファイルでも200 OKを返し、空の文字列を返す
 	reqBody := ReadFilesRequest{
 		OldFilePath: "/nonexistent/old.txt",
 		NewFilePath: "/nonexistent/new.txt",
@@ -219,8 +236,21 @@ func TestHandleReadFilesNonExistentFile(t *testing.T) {
 	rec := httptest.NewRecorder()
 	handleReadFiles(rec, req)
 
-	if rec.Code != http.StatusInternalServerError {
-		t.Errorf("ステータスコードが不正: got %d, want %d", rec.Code, http.StatusInternalServerError)
+	if rec.Code != http.StatusOK {
+		t.Errorf("ステータスコードが不正: got %d, want %d", rec.Code, http.StatusOK)
+	}
+
+	var resp ReadFilesResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("レスポンスのパースに失敗: %v", err)
+	}
+
+	// 存在しないファイルなので空の文字列が返される
+	if resp.OldFile != "" {
+		t.Errorf("OldFileが空であるべき: got %q", resp.OldFile)
+	}
+	if resp.NewFile != "" {
+		t.Errorf("NewFileが空であるべき: got %q", resp.NewFile)
 	}
 }
 
