@@ -72,6 +72,9 @@ twins-diff --port 8080 /path/to/old /path/to/new
 # Without auto-opening browser
 twins-diff --no-browser /path/to/old /path/to/new
 
+# Show only files with differences
+twins-diff --filter diff-only /path/to/old /path/to/new
+
 # Open browser first, then set paths in the UI
 twins-diff
 ```
@@ -82,6 +85,7 @@ twins-diff
 |--------|---------|-------------|
 | `--port` | `3000` | Port to listen on |
 | `--no-browser` | `false` | Do not open browser automatically |
+| `--filter` | `all` | Filter mode: `all` (show all files) or `diff-only` (show only files with differences) |
 
 ## Use as a Library
 

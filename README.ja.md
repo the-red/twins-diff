@@ -72,6 +72,9 @@ twins-diff --port 8080 /path/to/old /path/to/new
 # ブラウザを自動で開かない
 twins-diff --no-browser /path/to/old /path/to/new
 
+# 差分があるファイルのみ表示
+twins-diff --filter diff-only /path/to/old /path/to/new
+
 # 先にブラウザを開いて、UIでパスを設定
 twins-diff
 ```
@@ -82,6 +85,7 @@ twins-diff
 |-----------|-----------|------|
 | `--port` | `3000` | 待ち受けポート |
 | `--no-browser` | `false` | ブラウザを自動で開かない |
+| `--filter` | `all` | フィルタモード: `all`（全ファイル表示）または `diff-only`（差分のあるファイルのみ表示） |
 
 ## ライブラリとして使用
 
