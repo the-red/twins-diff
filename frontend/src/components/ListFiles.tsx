@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import { Link } from 'react-router-dom'
 import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
 import { parentDirectory } from '../utils/parent-directory'
+import { joinPath } from '../utils/join-path'
 
 type FilesList = [string, 'dir' | 'file']
 type OldNewFilesList = { oldFilesList: FilesList[]; newFilesList: FilesList[] }
@@ -49,7 +50,7 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
               <span>{icon}</span>
             </td>
             <td>
-              <Link to={href}>{text}</Link>
+              <a href={href}>{text}</a>
             </td>
             <td></td>
             <td></td>
@@ -57,7 +58,9 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
           {fileNames.map((name, i) => {
             const oldFileType = oldFilesMap.get(name)
             const newFileType = newFilesMap.get(name)
-            const query = `?from=${oldDir}/${name}&to=${newDir}/${name}`
+            const fromPath = oldDir ? joinPath(oldDir, name) : name
+            const toPath = newDir ? joinPath(newDir, name) : name
+            const query = `?from=${encodeURIComponent(fromPath)}&to=${encodeURIComponent(toPath)}`
             let fileName, fileIcon
             switch ([oldFileType, newFileType].join(',')) {
               case 'file,file':
@@ -65,7 +68,7 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
                 fileIcon = <FileDiffIcon size={16} />
                 break
               case 'dir,dir':
-                fileName = <Link to={`/${query}`}>{name}</Link>
+                fileName = <a href={`/${query}`}>{name}</a>
                 fileIcon = <FileDirectoryFillIcon size={16} fill="rgb(84, 174, 255)" />
                 break
               default:
