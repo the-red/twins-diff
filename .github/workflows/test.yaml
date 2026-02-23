@@ -19,7 +19,9 @@ jobs:
           go-version-file: go.mod
 
       - name: Run Go tests
-        run: go test ./... -v
+        # cmd/twins-diff はgo:embedでweb/distを必要とするため、
+        # pkg/diffのみをテスト対象とする
+        run: go test ./pkg/... -v
 
   test-frontend:
     runs-on: ubuntu-latest
