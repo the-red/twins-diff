@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 // ListFilesRequest はlist-files APIのリクエスト
@@ -166,6 +167,11 @@ func buildFilesList(oldDir, newDir string, oldFiles, newFiles [][2]string) []Fil
 
 		result = append(result, entry)
 	}
+
+	// ファイル名で昇順ソート
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Name < result[j].Name
+	})
 
 	return result
 }
