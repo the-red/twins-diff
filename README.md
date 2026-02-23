@@ -86,6 +86,7 @@ twins-diff
 | `--port` | `3000` | Port to listen on |
 | `--no-browser` | `false` | Do not open browser automatically |
 | `--filter` | `all` | Filter mode: `all` (show all files) or `diff-only` (show only files with differences) |
+| `--version` | - | Show version |
 
 ## Use as a Library
 

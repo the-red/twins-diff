@@ -13,6 +13,9 @@ import (
 	"github.com/the-red/twins-diff/pkg/diff"
 )
 
+// version はビルド時に -ldflags で設定される
+var version = "dev"
+
 //go:embed all:web/dist
 var distFS embed.FS
 
@@ -20,6 +23,7 @@ func main() {
 	port := flag.Int("port", 3000, "port to listen on")
 	noBrowser := flag.Bool("no-browser", false, "do not open browser")
 	filter := flag.String("filter", "all", "filter mode: all or diff-only")
+	showVersion := flag.Bool("version", false, "show version")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] [dir1] [dir2]\n\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Compare two directories and display differences in browser.\n\n")
@@ -30,8 +34,14 @@ func main() {
 		fmt.Fprintf(os.Stderr, "  -port PORT    port to listen on (default 3000)\n")
 		fmt.Fprintf(os.Stderr, "  -no-browser   do not open browser\n")
 		fmt.Fprintf(os.Stderr, "  -filter MODE  filter mode: all (default) or diff-only\n")
+		fmt.Fprintf(os.Stderr, "  -version      show version\n")
 	}
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Printf("twins-diff version %s\n", version)
+		return
+	}
 
 	args := flag.Args()
 	var dir1, dir2 string
