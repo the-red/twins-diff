@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { Link, useSearchParams } from 'react-router-dom'
-import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
+import { FileDiffIcon, FileDirectoryFillIcon, DiffAddedIcon, DiffRemovedIcon } from '@primer/octicons-react'
 import { joinPath } from '../utils/join-path'
 
 type FilesList = [string, 'dir' | 'file']
@@ -98,14 +98,35 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             const filterParam = filterMode === 'diff-only' ? '&filter=diff-only' : ''
             const query = `?from=${encodeURIComponent(fromPath)}&to=${encodeURIComponent(toPath)}${filterParam}`
             let fileName, fileIcon
-            switch ([oldType, newType].join(',')) {
+            const typeKey = [oldType ?? 'null', newType ?? 'null'].join(',')
+            switch (typeKey) {
               case 'file,file':
                 fileName = <Link to={`/diff${query}`}>{name}</Link>
                 fileIcon = <FileDiffIcon size={16} />
                 break
+              case 'file,null':
+                // old側のみにある（削除）
+                fileName = <Link to={`/diff${query}`}>{name}</Link>
+                fileIcon = <DiffRemovedIcon size={16} fill="rgb(248, 81, 73)" />
+                break
+              case 'null,file':
+                // new側のみにある（追加）
+                fileName = <Link to={`/diff${query}`}>{name}</Link>
+                fileIcon = <DiffAddedIcon size={16} fill="rgb(63, 185, 80)" />
+                break
               case 'dir,dir':
                 fileName = <a href={`/${query}`}>{name}</a>
                 fileIcon = <FileDirectoryFillIcon size={16} fill="rgb(84, 174, 255)" />
+                break
+              case 'dir,null':
+                // old側のみにあるフォルダ（削除）
+                fileName = <a href={`/${query}`}>{name}</a>
+                fileIcon = <DiffRemovedIcon size={16} fill="rgb(248, 81, 73)" />
+                break
+              case 'null,dir':
+                // new側のみにあるフォルダ（追加）
+                fileName = <a href={`/${query}`}>{name}</a>
+                fileIcon = <DiffAddedIcon size={16} fill="rgb(63, 185, 80)" />
                 break
               default:
                 fileName = name

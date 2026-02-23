@@ -55,17 +55,9 @@ func handleListFiles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	oldFiles, err := listFiles(req.OldDirPath)
-	if err != nil {
-		sendError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	newFiles, err := listFiles(req.NewDirPath)
-	if err != nil {
-		sendError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
+	// ディレクトリが存在しない場合は空リストを返す（片方だけのフォルダ表示用）
+	oldFiles, _ := listFiles(req.OldDirPath)
+	newFiles, _ := listFiles(req.NewDirPath)
 
 	// 統合されたファイルリストを作成
 	filesList := buildFilesList(req.OldDirPath, req.NewDirPath, oldFiles, newFiles)
@@ -87,17 +79,9 @@ func handleReadFiles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	oldContent, err := os.ReadFile(req.OldFilePath)
-	if err != nil {
-		sendError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	newContent, err := os.ReadFile(req.NewFilePath)
-	if err != nil {
-		sendError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
+	// ファイルが存在しない場合は空文字列を返す（片方だけのdiff表示用）
+	oldContent, _ := os.ReadFile(req.OldFilePath)
+	newContent, _ := os.ReadFile(req.NewFilePath)
 
 	resp := ReadFilesResponse{
 		OldFile: string(oldContent),
