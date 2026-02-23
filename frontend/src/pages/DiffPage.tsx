@@ -15,6 +15,7 @@ const DiffPage = () => {
 
   const oldFile = searchParams.get('from') ?? undefined
   const newFile = searchParams.get('to') ?? undefined
+  const filter = searchParams.get('filter') ?? undefined
 
   const oldFileName = basename(oldFile ?? '')
   const newFileName = basename(newFile ?? '')
@@ -22,7 +23,7 @@ const DiffPage = () => {
 
   return (
     <Layout title={title} from={oldFile} to={newFile}>
-      <BackButton from={oldFile} to={newFile} />
+      <BackButton from={oldFile} to={newFile} filter={filter} />
       <div style={{ margin: '20px' }}></div>
       <DiffViewer oldFile={oldFile} newFile={newFile} />
     </Layout>

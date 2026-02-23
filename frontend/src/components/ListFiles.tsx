@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import useSWR from 'swr'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
 import { joinPath } from '../utils/join-path'
 
@@ -22,7 +21,18 @@ type FilterMode = 'all' | 'diff-only'
 type Props = { oldDir?: string; newDir?: string }
 
 const ListFiles = ({ oldDir, newDir }: Props) => {
-  const [filterMode, setFilterMode] = useState<FilterMode>('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filterMode: FilterMode = searchParams.get('filter') === 'diff-only' ? 'diff-only' : 'all'
+
+  const setFilterMode = (mode: FilterMode) => {
+    const newParams = new URLSearchParams(searchParams)
+    if (mode === 'all') {
+      newParams.delete('filter')
+    } else {
+      newParams.set('filter', mode)
+    }
+    setSearchParams(newParams)
+  }
 
   const { data, error } = useSWR<ListFilesResponse>(['/api/list-files', oldDir, newDir], async ([url, oldDir, newDir]) => {
     const res = await fetch(url, {
@@ -85,7 +95,8 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
             const { name, oldType, newType, hasDiff } = entry
             const fromPath = oldDir ? joinPath(oldDir, name) : name
             const toPath = newDir ? joinPath(newDir, name) : name
-            const query = `?from=${encodeURIComponent(fromPath)}&to=${encodeURIComponent(toPath)}`
+            const filterParam = filterMode === 'diff-only' ? '&filter=diff-only' : ''
+            const query = `?from=${encodeURIComponent(fromPath)}&to=${encodeURIComponent(toPath)}${filterParam}`
             let fileName, fileIcon
             switch ([oldType, newType].join(',')) {
               case 'file,file':
