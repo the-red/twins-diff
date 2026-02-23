@@ -19,6 +19,7 @@ var distFS embed.FS
 func main() {
 	port := flag.Int("port", 3000, "port to listen on")
 	noBrowser := flag.Bool("no-browser", false, "do not open browser")
+	filter := flag.String("filter", "all", "filter mode: all or diff-only")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] [dir1] [dir2]\n\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Compare two directories and display differences in browser.\n\n")
@@ -28,6 +29,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Options:\n")
 		fmt.Fprintf(os.Stderr, "  -port PORT    port to listen on (default 3000)\n")
 		fmt.Fprintf(os.Stderr, "  -no-browser   do not open browser\n")
+		fmt.Fprintf(os.Stderr, "  -filter MODE  filter mode: all (default) or diff-only\n")
 	}
 	flag.Parse()
 
@@ -45,6 +47,9 @@ func main() {
 		params := url.Values{}
 		params.Set("from", dir1)
 		params.Set("to", dir2)
+		if *filter == "diff-only" {
+			params.Set("filter", "diff-only")
+		}
 		serverURL += "?" + params.Encode()
 	}
 
