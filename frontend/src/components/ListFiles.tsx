@@ -2,7 +2,6 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import { Link } from 'react-router-dom'
 import { FileDiffIcon, FileDirectoryFillIcon } from '@primer/octicons-react'
-import { parentDirectory } from '../utils/parent-directory'
 import { joinPath } from '../utils/join-path'
 
 type FilesList = [string, 'dir' | 'file']
@@ -41,8 +40,6 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
 
   if (error) return <div>failed to load: {JSON.stringify(error)}</div>
   if (!data) return <div>loading...</div>
-
-  const { href, icon, text } = parentDirectory({ from: oldDir, to: newDir })
 
   // フィルタリング
   const filteredFiles = data.filesList.filter((entry) => {
@@ -84,16 +81,6 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <span>{icon}</span>
-            </td>
-            <td>
-              <a href={href}>{text}</a>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
           {filteredFiles.map((entry, i) => {
             const { name, oldType, newType, hasDiff } = entry
             const fromPath = oldDir ? joinPath(oldDir, name) : name
