@@ -13,7 +13,7 @@ export const parentDirectory = ({
   from?: string
   to?: string
 }): { href: string; icon: string; text: string } => {
-  const href = from && to ? `/?from=${dirname(from)}&to=${dirname(to)}` : '#'
+  const href = from && to ? `/?from=${encodeURIComponent(dirname(from))}&to=${encodeURIComponent(dirname(to))}` : '#'
   const icon = '↩'
   const text = 'Parent Directory'
 

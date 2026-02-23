@@ -8,7 +8,7 @@ describe('parentDirectory', () => {
       to: '/path/to/new/file.txt',
     })
 
-    expect(result.href).toBe('/?from=/path/to/old&to=/path/to/new')
+    expect(result.href).toBe(`/?from=${encodeURIComponent('/path/to/old')}&to=${encodeURIComponent('/path/to/new')}`)
     expect(result.icon).toBe('↩')
     expect(result.text).toBe('Parent Directory')
   })
@@ -43,7 +43,7 @@ describe('parentDirectory', () => {
       to: '/other.txt',
     })
 
-    expect(result.href).toBe('/?from=/&to=/')
+    expect(result.href).toBe(`/?from=${encodeURIComponent('/')}&to=${encodeURIComponent('/')}`)
   })
 
   it('should handle paths without leading slash', () => {
@@ -52,7 +52,7 @@ describe('parentDirectory', () => {
       to: 'other/relative/file.txt',
     })
 
-    expect(result.href).toBe('/?from=relative/path&to=other/relative')
+    expect(result.href).toBe(`/?from=${encodeURIComponent('relative/path')}&to=${encodeURIComponent('other/relative')}`)
   })
 
   it('should handle single filename without path', () => {
