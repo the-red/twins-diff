@@ -1,4 +1,4 @@
-.PHONY: build clean frontend
+.PHONY: build clean frontend test test-go test-frontend
 
 # フロントエンドビルド
 frontend:
@@ -18,6 +18,15 @@ build: cmd/twins-diff/web/dist
 # クリーンアップ
 clean:
 	rm -rf bin cmd/twins-diff/web
+
+# テスト
+test: test-go test-frontend
+
+test-go:
+	go test ./...
+
+test-frontend:
+	cd frontend && yarn test
 
 # 開発用: フロントエンド開発サーバー
 dev-frontend:
