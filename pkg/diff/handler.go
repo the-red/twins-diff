@@ -95,10 +95,11 @@ func handleReadFiles(w http.ResponseWriter, r *http.Request) {
 func listFiles(dirPath string) ([][2]string, error) {
 	entries, err := os.ReadDir(dirPath)
 	if err != nil {
-		return nil, err
+		// エラー時も空スライスを返す（JSONでnullではなく[]にするため）
+		return make([][2]string, 0), err
 	}
 
-	var result [][2]string
+	result := make([][2]string, 0, len(entries))
 	for _, entry := range entries {
 		fileType := "file"
 		if entry.IsDir() {
@@ -131,8 +132,8 @@ func buildFilesList(oldDir, newDir string, oldFiles, newFiles [][2]string) []Fil
 		allNames[name] = true
 	}
 
-	// ファイルリストを作成
-	var result []FileEntry
+	// ファイルリストを作成（空でも[]を返すためmakeで初期化）
+	result := make([]FileEntry, 0)
 	for name := range allNames {
 		entry := FileEntry{Name: name}
 
