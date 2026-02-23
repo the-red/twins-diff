@@ -16,10 +16,9 @@ const ListFiles = ({ oldDir, newDir }: Props) => {
       body: JSON.stringify({ oldDirPath: oldDir, newDirPath: newDir }),
     })
     if (!res.ok) {
-      console.error('error')
       const e = await res.json()
-      console.error(e)
-      throw new Error(e.errorMessage)
+      console.error('API error:', e)
+      throw new Error(e.message || 'Unknown error')
     }
     return res.json()
   })

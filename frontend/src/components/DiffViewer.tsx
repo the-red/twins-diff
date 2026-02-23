@@ -13,10 +13,9 @@ const DiffViewer = ({ oldFile, newFile }: Props) => {
       body: JSON.stringify({ oldFilePath: oldFile, newFilePath: newFile }),
     })
     if (!res.ok) {
-      console.error('error')
       const e = await res.json()
-      console.error(e)
-      throw new Error(e.errorMessage)
+      console.error('API error:', e)
+      throw new Error(e.message || 'Unknown error')
     }
     return res.json()
   })
