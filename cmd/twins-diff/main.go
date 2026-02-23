@@ -23,10 +23,11 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] [dir1] [dir2]\n\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Compare two directories and display differences in browser.\n\n")
 		fmt.Fprintf(os.Stderr, "Arguments:\n")
-		fmt.Fprintf(os.Stderr, "  dir1    Left side directory (displayed as 'old')\n")
-		fmt.Fprintf(os.Stderr, "  dir2    Right side directory (displayed as 'new')\n\n")
+		fmt.Fprintf(os.Stderr, "  dir1          Left side directory (displayed as 'old')\n")
+		fmt.Fprintf(os.Stderr, "  dir2          Right side directory (displayed as 'new')\n\n")
 		fmt.Fprintf(os.Stderr, "Options:\n")
-		flag.PrintDefaults()
+		fmt.Fprintf(os.Stderr, "  -port PORT    port to listen on (default 3000)\n")
+		fmt.Fprintf(os.Stderr, "  -no-browser   do not open browser\n")
 	}
 	flag.Parse()
 
